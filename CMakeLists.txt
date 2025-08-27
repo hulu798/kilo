@@ -14,30 +14,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -pedantic")
 include_directories(include)
 
 # Source files
-set(SOURCES
-    src/main.c
-    src/terminal.c
-    src/syntax.c
-    src/editor_row.c
-    src/editor_core.c
-    src/editor_input.c
-    src/file_io.c
-    src/search.c
-)
+file(GLOB SRC src/*.c)
 
 # Create executable
-add_executable(kilo ${SOURCES})
-
-# Add compile definitions for Linux
-if(UNIX AND NOT APPLE)
-    target_compile_definitions(kilo PRIVATE _POSIX_C_SOURCE=200809L)
-endif()
-
-# Installation
-install(TARGETS kilo DESTINATION bin)
-
-# Optional: Add a target to build from the original single file
-add_executable(kilo_original kilo.c)
-if(UNIX AND NOT APPLE)
-    target_compile_definitions(kilo_original PRIVATE _POSIX_C_SOURCE=200809L)
-endif()
+add_executable(kilo ${SRC})
